@@ -6,7 +6,7 @@
 /*   By: nchahed <nchahed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 11:57:07 by nchahed           #+#    #+#             */
-/*   Updated: 2019/11/30 17:21:41 by nchahed          ###   ########.fr       */
+/*   Updated: 2019/11/30 18:00:09 by nchahed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		get_next_line(int fd, char **line)
 	int			j;
 
 	tmp_begline = tmp;
-	while ((ret = read(fd, buf, BUFFER_SIZE) && ret != -1))
+	while ((ret = read(fd, buf, BUFFER_SIZE)) && ret != -1)
 	{
 		buf[ret] = '\0';
 		i = 0;
@@ -42,6 +42,7 @@ int		get_next_line(int fd, char **line)
 				tmp[j] = buf[i + j];
 				j++;
 			}
+			tmp[j] = '\0';
 			if (!(*line = gnl_strjoin(tmp_begline, buf)))
 				return (-1);
 			return (1);
