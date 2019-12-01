@@ -6,7 +6,7 @@
 /*   By: nchahed <nchahed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 11:57:07 by nchahed           #+#    #+#             */
-/*   Updated: 2019/11/30 18:06:33 by nchahed          ###   ########.fr       */
+/*   Updated: 2019/12/01 13:40:21 by nchahed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,40 +24,35 @@ int		get_next_line(int fd, char **line)
 	int			j;
 
 	tmp_begline = tmp;
-	while ((ret = read(fd, buf, BUFFER_SIZE))/* && ret*/ != -1)
+	while ((ret = read(fd, buf, BUFFER_SIZE)) != -1)
 	{
 		buf[ret] = '\0';
+		if(!(tmp_begline = gnl_strjoin(tmp_begline, buf)))
+			return (-1);
 		i = 0;
-		while (buf[i] != '\n' && buf[i])
+		while (tmp_begline[i] != '\n' && tmp_begline[i])
 			i++;
-		if (buf[i] == '\n')
+		if (tmp_begline[i] == '\n')
 		{
 			if(!(tmp = (char *)malloc(sizeof(char) * (ret - i))))
 				return (-1);
-			buf[i] = '\0';
+			tmp_begline[i] = '\0';
 			i++;
 			j = 0;
 			while (buf[i + j])
 			{
-				tmp[j] = buf[i + j];
+				tmp[j] = tmp_begline[i + j];
 				j++;
 			}
 			tmp[j] = '\0';
-			if (!(*line = gnl_strjoin(tmp_begline, buf)))
-				return (-1);
+			*line = tmp_begline;
 			return (1);
 		}
-		else
+		else if (ret == 0)
 		{
-			if(!(tmp_begline = gnl_strjoin(tmp_begline, buf)))
-				return (-1);
+			*line = tmp_begline;
+			return (0);	
 		}
 	}
-	if (ret == -1)
-		return (-1);
-	else
-	{
-		*line = tmp_begline;
-		return (0);
-	}
+	return (-1);
 }
