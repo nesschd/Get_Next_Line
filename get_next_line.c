@@ -6,7 +6,7 @@
 /*   By: nchahed <nchahed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 11:57:07 by nchahed           #+#    #+#             */
-/*   Updated: 2019/12/01 13:40:21 by nchahed          ###   ########.fr       */
+/*   Updated: 2019/12/01 13:47:07 by nchahed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int		get_next_line(int fd, char **line)
 			i++;
 		if (tmp_begline[i] == '\n')
 		{
-			if(!(tmp = (char *)malloc(sizeof(char) * (ret - i))))
+			if(!(tmp = (char *)malloc(sizeof(char) * gnl_strlen(tmp_begline + i))))
 				return (-1);
 			tmp_begline[i] = '\0';
 			i++;
 			j = 0;
-			while (buf[i + j])
+			while (tmp_begline[i + j])
 			{
 				tmp[j] = tmp_begline[i + j];
 				j++;
