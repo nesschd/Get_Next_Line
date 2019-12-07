@@ -6,7 +6,7 @@
 /*   By: nchahed <nchahed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 14:53:40 by nchahed           #+#    #+#             */
-/*   Updated: 2019/11/30 15:35:43 by nchahed          ###   ########.fr       */
+/*   Updated: 2019/12/06 19:34:51 by nchahed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 	int		j;
 
 	len = gnl_strlen(s1) + gnl_strlen(s2);
-	if (!(str = (char *)malloc(len + 1)))
+	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
 	{
 		free(s1);
 		return (NULL);
@@ -45,7 +45,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 		str[i]= s1[i];
 		i++;
 	}
-	free (s1);
+	free(s1);
 	j = -1;
 	while (s2[++j])
 	{
