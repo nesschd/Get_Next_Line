@@ -6,7 +6,7 @@
 /*   By: nchahed <nchahed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 11:57:07 by nchahed           #+#    #+#             */
-/*   Updated: 2019/12/06 19:37:50 by nchahed          ###   ########.fr       */
+/*   Updated: 2019/12/07 21:44:25 by nchahed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ int		get_next_line(int fd, char **line)
 	int			j;
 
 	tmp_begline = tmp;
+	if (!line)
+		return (-1);
+	if (BUFFER_SIZE == 0)
+	{
+		*line = malloc(1);
+		return (-1);
+	}
 	while ((ret = read(fd, buf, BUFFER_SIZE)) != -1)
 	{
 		buf[ret] = '\0';
@@ -56,5 +63,6 @@ int		get_next_line(int fd, char **line)
 			return (0);	
 		}
 	}
+	*line = malloc(1);
 	return (-1);
 }
